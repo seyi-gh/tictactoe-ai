@@ -1,6 +1,7 @@
 #include <iostream>
 #include <ctime>
 #include "source/Table.h"
+#include "source/stream.h"
 using namespace std;
 
 int main() {
@@ -11,6 +12,7 @@ int main() {
   int player1 = 1;
   int player2 = 2;
   int player_turn = player1;
+  vector<string> winner_path;
 
   cout << "> Starting test <" << endl;
 
@@ -21,6 +23,10 @@ int main() {
     }
     vector<int> next_position = table.get_random_position();
     bool response = table.place_turn(next_position[0], next_position[1], player_turn);
+    winner_path.push_back({
+      table._convert_char(next_position[0]),
+      table._convert_char(next_position[1])
+    });
 
     table.print();
     cout << "Row: " << next_position[0] << " Column: " << next_position[1] << endl;
@@ -38,6 +44,17 @@ int main() {
   }
 
   cout << "> Ending test <" << endl;
+
+  /*
+  cout << "> Writing vector <" << endl;
+  save_vector(winner_path, "data.bin");
+
+  vector<string> path = load_vector("data.bin");
+  
+  for (int i = 0; i < path.size(); i++) {
+    cout << path[i] << endl;
+  }
+  */
 
   return 0;
 }
